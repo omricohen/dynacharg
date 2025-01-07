@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,16 +18,16 @@ export default function RootLayout({
         <header className="bg-white shadow-sm">
           <nav className="container py-4">
             <div className="flex items-center justify-between">
-              <a href="/" className="text-2xl font-bold text-green-500">Dynachrg</a>
+              <Link href="/" className="text-2xl font-bold text-green-500">Dynachrg</Link>
               <div className="hidden md:flex space-x-8">
-                <a href="/" className="text-gray-600 hover:text-gray-900">Home</a>
-                <a href="/about" className="text-gray-600 hover:text-gray-900">About</a>
-                <a href="/faq" className="text-gray-600 hover:text-gray-900">FAQ</a>
-                <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
+                <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
+                <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
+                <Link href="/faq" className="text-gray-600 hover:text-gray-900">FAQ</Link>
+                <Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link>
               </div>
-              <a href="/signup" className="btn-primary">
+              <Link href="/signup" className="btn-primary">
                 Qualify Now
-              </a>
+              </Link>
             </div>
           </nav>
         </header>
@@ -41,10 +42,10 @@ export default function RootLayout({
               <div>
                 <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                 <ul className="space-y-2">
-                  <li><a href="/" className="text-gray-600 hover:text-gray-900">Home</a></li>
-                  <li><a href="/about" className="text-gray-600 hover:text-gray-900">About</a></li>
-                  <li><a href="/faq" className="text-gray-600 hover:text-gray-900">FAQ</a></li>
-                  <li><a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a></li>
+                  <li><Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link></li>
+                  <li><Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link></li>
+                  <li><Link href="/faq" className="text-gray-600 hover:text-gray-900">FAQ</Link></li>
+                  <li><Link href="/contact" className="text-gray-600 hover:text-gray-900">Contact</Link></li>
                 </ul>
               </div>
               <div>

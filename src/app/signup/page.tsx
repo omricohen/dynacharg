@@ -3,13 +3,26 @@
 import { useState, useEffect, useRef } from 'react'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import Script from 'next/script'
+import Link from 'next/link'
 
 // Add type for Google Places Autocomplete
 declare global {
   interface Window {
-    google: any;
+    google: {
+      maps: {
+        places: {
+          Autocomplete: new (input: HTMLInputElement, options?: AutocompleteOptions) => any;
+        };
+      };
+    };
     initAutocomplete: () => void;
   }
+}
+
+interface AutocompleteOptions {
+  componentRestrictions?: { country: string };
+  fields?: string[];
+  types?: string[];
 }
 
 const propertyTypes = [
@@ -145,12 +158,10 @@ export default function SignUp() {
     const { name, value, type } = e.target
     const checked = (e.target as HTMLInputElement).checked
 
-    const newValue = type === 'checkbox' ? checked : value
     setFormData(prev => ({
       ...prev,
-      [name]: newValue
+      [name]: type === 'checkbox' ? checked : value
     }))
-
   }
 
   // Update input fields to show errors
@@ -249,13 +260,10 @@ export default function SignUp() {
         <div className="container max-w-2xl">
           <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
             <h2 className="text-2xl font-bold text-green-800 mb-4">Thank You!</h2>
-            <p className="text-green-700 mb-6">
-              Your application has been submitted successfully. Our team will review your information and contact you within 48-72 hours.
-            </p>
-            <a href="/" className="btn-primary inline-flex items-center justify-center">
-              Return Home
-              <ArrowRightIcon className="w-5 h-5 ml-2" />
-            </a>
+            <p className="text-green-700 mb-6">We've received your submission and will be in touch shortly.</p>
+            <Link href="/" className="inline-flex items-center text-green-600 hover:text-green-700">
+              ← Back to Home
+            </Link>
           </div>
         </div>
       </div>

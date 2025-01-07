@@ -16,6 +16,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import Countdown from 'react-countdown'
 
 const DEADLINE = new Date('2025-01-12')
@@ -44,13 +45,13 @@ export default function Home() {
                 80% of drivers prefer to charge at home. DynaChrg offers innovative solutions for multifamily housing, boosting sustainability and tenant satisfaction.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="/contact" className="btn-primary inline-flex items-center justify-center">
+                <Link href="/contact" className="btn-primary inline-flex items-center justify-center">
                   Talk to an Expert
                   <ArrowRightIcon className="w-5 h-5 ml-2" />
-                </a>
-                <a href="/about" className="btn-secondary inline-flex items-center justify-center">
+                </Link>
+                <Link href="/about" className="btn-secondary inline-flex items-center justify-center">
                   Learn More
-                </a>
+                </Link>
               </div>
             </div>
             <div className="relative">
@@ -161,7 +162,7 @@ export default function Home() {
                 <h2 className="text-3xl font-bold">Premium EV Charging Infrastructure</h2>
               </div>
               <p className="text-gray-600 mb-8">
-                Our sleek, modern charging stations are designed for reliability and ease of use. With smart features and durable construction, they're perfect for any multi-dwelling property with 10 or more units.
+                Our sleek, modern charging stations are designed for reliability and ease of use. With smart features and durable construction, they&apos;re perfect for any multi-dwelling property with 10 or more units.
               </p>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
@@ -280,10 +281,10 @@ export default function Home() {
           </div>
           <p className="text-gray-600 mb-8">Perfect for properties with 10+ units. Don't miss out on the $500 incentive - limited time offer ends January 12th!</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="btn-primary inline-flex items-center justify-center">
+            <Link href="/contact" className="btn-primary inline-flex items-center justify-center">
               Talk to an Expert
               <ArrowRightIcon className="w-5 h-5 ml-2" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
