@@ -3,7 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dynachrg Lead Program - Earn $500 for EV Charger Installation",
+  title: "Dynachrg - Earn $500 for EV Charger Installation",
   description: "Sign up for free EV charger installation with Dynachrg. Earn $500 per property before January 12th!",
 };
 
