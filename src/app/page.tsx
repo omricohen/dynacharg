@@ -1,101 +1,292 @@
-import Image from "next/image";
+'use client'
+
+import { 
+  ArrowRightIcon, 
+  BoltIcon, 
+  BuildingOfficeIcon, 
+  CurrencyDollarIcon, 
+  ChartBarIcon, 
+  BellAlertIcon,
+  BuildingLibraryIcon,
+  HomeModernIcon,
+  UserGroupIcon,
+  WrenchScrewdriverIcon,
+  ClockIcon,
+  ShieldCheckIcon
+} from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Countdown from 'react-countdown'
+
+const DEADLINE = new Date('2025-01-12')
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-green-50 to-blue-50 py-20">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="bg-green-500 text-white px-4 py-2 rounded-full inline-flex items-center gap-2 mb-4 text-sm font-semibold">
+                <CurrencyDollarIcon className="w-5 h-5" />
+                Limited Time Offer
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                Get $500 Per Building When You Install EV Chargers
+              </h1>
+              <div className="bg-green-100 border border-green-200 rounded-lg p-4 mb-6">
+                <p className="text-lg text-green-800 font-medium">
+                  Perfect for residential properties with 10+ units. Each qualifying building receives a $500 bonus!
+                </p>
+              </div>
+              <p className="text-xl text-gray-600 mb-8">
+                80% of drivers prefer to charge at home. DynaChrg offers innovative solutions for multifamily housing, boosting sustainability and tenant satisfaction.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="/contact" className="btn-primary inline-flex items-center justify-center">
+                  Talk to an Expert
+                  <ArrowRightIcon className="w-5 h-5 ml-2" />
+                </a>
+                <a href="/about" className="btn-secondary inline-flex items-center justify-center">
+                  Learn More
+                </a>
+              </div>
+            </div>
+            <div className="relative">
+              <Image
+                src="/charger.webp"
+                alt="DynaChrg EV Charger"
+                width={500}
+                height={600}
+                className="rounded-2xl shadow-lg"
+              />
+              <div className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+                <span className="text-2xl font-bold">$500</span>
+                <span className="text-sm block">per building</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Countdown Section */}
+      <section className="bg-white py-12 border-b">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8">
+              <div className="text-center">
+                <div className="flex justify-center items-center gap-8 mb-8">
+                  <Image
+                    src="/ladwp.png"
+                    alt="LADWP Logo"
+                    width={120}
+                    height={60}
+                    className="h-12 w-auto object-contain"
+                  />
+                  <Image
+                    src="/usdoe.png"
+                    alt="Federal Incentives"
+                    width={120}
+                    height={60}
+                    className="h-12 w-auto object-contain"
+                  />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <ClockIcon className="w-6 h-6 text-green-600" />
+                  <h2 className="text-2xl font-bold">Get Your $500 Installation Bonus</h2>
+                </div>
+                <p className="text-gray-600 mb-6">
+                  Take advantage of this limited-time offer while LADWP rebates and Federal tax credits are at their peak. 
+                  Act now to maximize your savings!
+                </p>
+                <div className="inline-block bg-white px-8 py-6 rounded-xl shadow-sm border border-gray-100 mb-6">
+                  <Countdown
+                    date={DEADLINE}
+                    renderer={({ days, hours, minutes, seconds }) => (
+                      <div className="flex gap-8">
+                        <div>
+                          <span className="text-4xl font-bold text-green-600">{days}</span>
+                          <p className="text-sm text-gray-600 mt-1">Days</p>
+                        </div>
+                        <div>
+                          <span className="text-4xl font-bold text-green-600">{hours}</span>
+                          <p className="text-sm text-gray-600 mt-1">Hours</p>
+                        </div>
+                        <div>
+                          <span className="text-4xl font-bold text-green-600">{minutes}</span>
+                          <p className="text-sm text-gray-600 mt-1">Minutes</p>
+                        </div>
+                        <div>
+                          <span className="text-4xl font-bold text-green-600">{seconds}</span>
+                          <p className="text-sm text-gray-600 mt-1">Seconds</p>
+                        </div>
+                      </div>
+                    )}
+                  />
+                </div>
+                <div className="text-left bg-yellow-50 p-4 rounded-lg border border-yellow-100">
+                  <div className="flex items-center gap-2 mb-2">
+                    <BoltIcon className="w-5 h-5 text-yellow-800" />
+                    <h4 className="font-semibold text-yellow-800">Don't Miss Out on Maximum Savings</h4>
+                  </div>
+                  <ul className="text-sm text-yellow-800 space-y-2">
+                    <li className="flex items-start gap-2">
+                      <BuildingLibraryIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <span>LADWP currently offering their highest-ever rebates for EV charger installations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CurrencyDollarIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <span>Federal tax credits at peak rate of 30% - the perfect time to invest</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <BoltIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                      <span>Get an additional $500 bonus from DynaChrg when you sign up before January 12th</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Showcase Section */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <WrenchScrewdriverIcon className="w-8 h-8 text-green-600" />
+                <h2 className="text-3xl font-bold">Premium EV Charging Infrastructure</h2>
+              </div>
+              <p className="text-gray-600 mb-8">
+                Our sleek, modern charging stations are designed for reliability and ease of use. With smart features and durable construction, they're perfect for any multi-dwelling property with 10 or more units.
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3">
+                  <BoltIcon className="w-5 h-5 text-green-500" />
+                  <span>High-speed charging capabilities</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <ChartBarIcon className="w-5 h-5 text-green-500" />
+                  <span>Smart load management</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <ShieldCheckIcon className="w-5 h-5 text-green-500" />
+                  <span>Weather-resistant design</span>
+                </li>
+              </ul>
+            </div>
+            <div className="relative">
+              <Image
+                src="/chargers.webp"
+                alt="EV Charging Station Installation"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg"
+              />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="order-2 md:order-1">
+              <Image
+                src="/cars-with-chargers.webp"
+                alt="Tesla Charging Station at Night"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-lg"
+              />
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="flex items-center gap-3 mb-6">
+                <ChartBarIcon className="w-8 h-8 text-green-600" />
+                <h2 className="text-3xl font-bold">Smart Management System</h2>
+              </div>
+              <p className="text-gray-600 mb-8">
+                Monitor and manage your charging infrastructure with our intuitive dashboard. Track usage, analyze patterns, and optimize performance in real-time.
+              </p>
+              <div className="grid grid-cols-2 gap-6">
+                <Image
+                  src="/dashboard.png"
+                  alt="Management Dashboard"
+                  width={300}
+                  height={200}
+                  className="rounded-lg shadow-sm"
+                />
+                <Image
+                  src="/dashboard-on-laptop.webp"
+                  alt="Usage Analytics"
+                  width={300}
+                  height={200}
+                  className="rounded-lg shadow-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <HomeModernIcon className="w-8 h-8 text-green-600" />
+            <h2 className="text-3xl font-bold text-center">Uplift your Property Value</h2>
+          </div>
+          <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            with a simple Centralized Solution
+          </p>
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <UserGroupIcon className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Attract eco-conscious tenants</h3>
+              <p className="text-gray-600 text-sm">Offering at-home EV charging enhances tenant satisfaction and attracts eco-conscious renters.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <ChartBarIcon className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Centralized platform</h3>
+              <p className="text-gray-600 text-sm">EVES offers centralized management for a holistic view of operations, maintenance, and resident satisfaction.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <CurrencyDollarIcon className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Automatic payments & Invoicing</h3>
+              <p className="text-gray-600 text-sm">Automated, secure payments to enhance transparency and satisfaction for EV charging management.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                <BoltIcon className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold mb-2">Seamless User experience</h3>
+              <p className="text-gray-600 text-sm">Track, optimize, and stay informed for a seamless charging experience.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20">
+        <div className="container text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <BuildingOfficeIcon className="w-8 h-8 text-green-600" />
+            <h2 className="text-3xl font-bold">Ready to super-charge your property?</h2>
+          </div>
+          <p className="text-gray-600 mb-8">Perfect for properties with 10+ units. Don't miss out on the $500 incentive - limited time offer ends January 12th!</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" className="btn-primary inline-flex items-center justify-center">
+              Talk to an Expert
+              <ArrowRightIcon className="w-5 h-5 ml-2" />
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
