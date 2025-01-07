@@ -34,11 +34,11 @@ export default function Home() {
                 Limited Time Offer
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Get $500 Per Building When You Install EV Chargers
+                Get $500 Per Charger When You Install EV Chargers
               </h1>
               <div className="bg-green-100 border border-green-200 rounded-lg p-4 mb-6">
                 <p className="text-lg text-green-800 font-medium">
-                  Perfect for residential properties with 10+ units. Each qualifying building receives a $500 bonus!
+                  Perfect for residential properties with 10+ units. Each qualifying charger receives a $500 bonus!
                 </p>
               </div>
               <p className="text-xl text-gray-600 mb-8">
@@ -181,7 +181,7 @@ export default function Home() {
             </div>
             <div className="relative">
               <Image
-                src="/chargers.webp"
+                src="/residentialCharger.png"
                 alt="EV Charging Station Installation"
                 width={600}
                 height={400}
@@ -193,7 +193,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <Image
-                src="/cars-with-chargers.webp"
+                src="/dynacharg.png"
                 alt="Tesla Charging Station at Night"
                 width={600}
                 height={400}
