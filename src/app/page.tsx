@@ -34,15 +34,15 @@ export default function Home() {
                 Limited Time Offer
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Get $500 Per Charger When You Install EV Chargers
+                Free EV Chargers + $500 Rebate Per Charger
               </h1>
               <div className="bg-green-100 border border-green-200 rounded-lg p-4 mb-6">
                 <p className="text-lg text-green-800 font-medium">
-                  Perfect for residential properties with 10+ units. Each qualifying charger receives a $500 bonus!
+                  Perfect for properties with 10+ units. Get EV chargers installed at no cost, plus earn $500 for each charger!
                 </p>
               </div>
               <p className="text-xl text-gray-600 mb-8">
-                80% of drivers prefer to charge at home. DynaChrg offers innovative solutions for multifamily housing, boosting sustainability and tenant satisfaction.
+                Transform your property with zero-cost EV charging infrastructure. Attract eco-conscious tenants and create a new revenue stream while supporting sustainability.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact" className="btn-primary inline-flex items-center justify-center">
@@ -63,8 +63,12 @@ export default function Home() {
                 className="rounded-2xl shadow-lg"
               />
               <div className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
-                <span className="text-2xl font-bold">$500</span>
-                <span className="text-sm block">per building</span>
+                <div className="text-center">
+                  <span className="text-sm font-medium">FREE Installation</span>
+                  <div className="border-t border-white/20 my-1"></div>
+                  <span className="text-2xl font-bold">+$500</span>
+                  <span className="text-sm block">per charger</span>
+                </div>
               </div>
             </div>
           </div>
@@ -95,11 +99,10 @@ export default function Home() {
                 </div>
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <ClockIcon className="w-6 h-6 text-green-600" />
-                  <h2 className="text-2xl font-bold">Get Your $500 Installation Bonus</h2>
+                  <h2 className="text-2xl font-bold">Double Your Benefits Today</h2>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Take advantage of this limited-time offer while LADWP rebates and Federal tax credits are at their peak. 
-                  Act now to maximize your savings!
+                  Take advantage of our no-cost installation program plus $500 rebate per charger, while LADWP rebates and Federal tax credits are at their peak.
                 </p>
                 <div className="inline-block bg-white px-8 py-6 rounded-xl shadow-sm border border-gray-100 mb-6">
                   <Countdown
@@ -129,20 +132,20 @@ export default function Home() {
                 <div className="text-left bg-yellow-50 p-4 rounded-lg border border-yellow-100">
                   <div className="flex items-center gap-2 mb-2">
                     <BoltIcon className="w-5 h-5 text-yellow-800" />
-                    <h4 className="font-semibold text-yellow-800">Don't Miss Out on Maximum Savings</h4>
+                    <h4 className="font-semibold text-yellow-800">Triple Savings Opportunity</h4>
                   </div>
                   <ul className="text-sm text-yellow-800 space-y-2">
                     <li className="flex items-start gap-2">
                       <BuildingLibraryIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span>LADWP currently offering their highest-ever rebates for EV charger installations</span>
+                      <span>Free professional installation covered by LADWP rebates</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CurrencyDollarIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span>Federal tax credits at peak rate of 30% - the perfect time to invest</span>
+                      <span>$500 cash bonus for each charger you install</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <BoltIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span>Get an additional $500 bonus from DynaChrg when you sign up before January 12th</span>
+                      <span>Ongoing revenue from EV charging fees</span>
                     </li>
                   </ul>
                 </div>
