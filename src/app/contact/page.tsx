@@ -119,7 +119,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600">info@dynachrg.com</p>
+                    <p className="text-gray-600">info@dynachrgusa.com</p>
                   </div>
                 </div>
                 <div className="flex items-start">
@@ -128,7 +128,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-600">(555) 123-4567</p>
+                    <p className="text-gray-600">‪(805) 272-0101‬</p>
                   </div>
                 </div>
                 <div className="flex items-start">

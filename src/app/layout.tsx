@@ -51,8 +51,8 @@ export default function RootLayout({
               <div>
                 <h3 className="text-lg font-semibold mb-4">Contact</h3>
                 <ul className="space-y-2 text-gray-600">
-                  <li>Email: info@dynachrg.com</li>
-                  <li>Phone: (555) 123-4567</li>
+                  <li>Email: info@dynachrgusa.com</li>
+                  <li>Phone: ‪(805) 272-0101‬</li>
                   <li>Los Angeles, CA</li>
                 </ul>
               </div>
