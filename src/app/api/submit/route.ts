@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const { ownerCompany, email, phone, properties, consent } = body
 
     // Create a row for each property
-    const rows = properties.map(property => [
+    const rows = properties.map((property: any) => [
       new Date().toISOString(), // Timestamp
       ownerCompany,
       email,
