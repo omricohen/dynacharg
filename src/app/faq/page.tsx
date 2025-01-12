@@ -2,39 +2,48 @@
 
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const faqs = [
   {
     question: "What is the $500 incentive?",
-    answer: "We are offering $500 per property that signs up for EV charger installation by January 12th. Payment is made after contract approval and signature."
+    answer: "We are offering a $500 cash bonus for each EV charger installed at your property. This is a limited-time offer available when you sign up before January 12th. The payment is made after contract approval and installation."
   },
   {
     question: "How does the free installation work?",
-    answer: "Our program utilizes LADWP rebates and government incentives to cover installation and equipment costs."
+    answer: "Our program utilizes LADWP rebates and government incentives to cover 100% of the installation and equipment costs. There are absolutely no upfront or hidden costs to property owners."
   },
   {
     question: "What properties qualify?",
-    answer: "Apartment buildings, office spaces, parking lots, and shopping centers with sufficient power supply."
+    answer: "Properties with 10 or more units typically qualify, including apartment buildings, office spaces, parking structures, and shopping centers. The main requirements are sufficient power supply and parking space availability."
   },
   {
-    question: "How long does the approval process take?",
-    answer: "Typically 48-72 hours for initial qualification and up to 90 days for city approval."
+    question: "How many chargers can I get?",
+    answer: "The number of chargers depends on your property's electrical capacity and parking space availability. You'll receive the $500 bonus for each charger installed, with no upper limit."
   },
   {
-    question: "Are there any upfront costs?",
-    answer: "No, there are no upfront costs. All installation and equipment costs are covered through LADWP rebates and government incentives."
+    question: "How long does the process take?",
+    answer: "Initial qualification takes 48-72 hours. After that, the complete process including city approval and installation typically takes 60-90 days."
+  },
+  {
+    question: "Are there any upfront or hidden costs?",
+    answer: "No, there are absolutely no upfront or hidden costs. All installation, equipment, and maintenance costs are covered through LADWP rebates and government incentives. Plus, you earn $500 for each charger installed."
   },
   {
     question: "How do I generate revenue from the chargers?",
-    answer: "Property owners earn a percentage of the charging fees collected from EV users. The exact revenue share will be outlined in your contract."
+    answer: "You earn a percentage of every charging session. Property owners receive a share of the charging fees collected from EV users, creating a new passive income stream. The exact revenue share percentage is outlined in your contract."
   },
   {
     question: "What maintenance is required?",
-    answer: "We handle all maintenance and servicing of the chargers. Property owners are not responsible for any maintenance costs."
+    answer: "None. We handle all maintenance, repairs, and servicing of the chargers at no cost to property owners. Our team provides 24/7 support and monitoring."
   },
   {
     question: "Can I choose the location of the chargers?",
-    answer: "Yes, we work with property owners to determine the optimal locations for charger installation, considering factors like accessibility and electrical infrastructure."
+    answer: "Yes, we work collaboratively with property owners to determine the optimal locations for charger installation. Our team considers factors like accessibility, electrical infrastructure, and your preferences."
+  },
+  {
+    question: "What happens after I apply?",
+    answer: "After you apply, our team will: 1) Review your property's qualification within 48-72 hours, 2) Schedule a free site assessment, 3) Provide a detailed proposal showing potential revenue, 4) Handle all permits and approvals, 5) Complete the installation, and 6) Process your $500 bonus payment for each charger."
   }
 ]
 
@@ -44,9 +53,14 @@ export default function FAQ() {
       <div className="container max-w-3xl">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4">Frequently Asked Questions</h1>
-          <p className="text-gray-600">
-            Find answers to common questions about our EV charger installation program.
+          <p className="text-gray-600 mb-6">
+            Find answers to common questions about our free EV charger installation program and $500 per charger bonus.
           </p>
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 inline-block">
+            <p className="text-green-800 font-medium">
+              Limited Time Offer: Get $500 for each charger installed at your property!
+            </p>
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -81,10 +95,10 @@ export default function FAQ() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-600 mb-6">Still have questions?</p>
-          <a href="/contact" className="btn-primary inline-flex items-center justify-center">
-            Contact Us
-          </a>
+          <p className="text-gray-600 mb-6">Ready to get started?</p>
+          <Link href="/signup" className="btn-primary inline-flex items-center justify-center">
+            Qualify Your Property
+          </Link>
         </div>
       </div>
     </div>

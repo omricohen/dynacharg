@@ -1,29 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
-import Script from 'next/script'
+import { useState } from 'react'
+import { ArrowRightIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-
-// Add type for Google Places Autocomplete
-declare global {
-  interface Window {
-    google: {
-      maps: {
-        places: {
-          Autocomplete: new (input: HTMLInputElement, options?: AutocompleteOptions) => any;
-        };
-      };
-    };
-    initAutocomplete: () => void;
-  }
-}
-
-interface AutocompleteOptions {
-  componentRestrictions?: { country: string };
-  fields?: string[];
-  types?: string[];
-}
 
 const propertyTypes = [
   'Apartment Building',
@@ -34,84 +13,88 @@ const propertyTypes = [
   'Other'
 ]
 
-interface FieldError {
-  [key: string]: string;
+interface PropertyData {
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  propertyType: string;
+  numberOfUnits: string;
+  assignedParkingSpaces: string;
+  guestParkingSpaces: string;
+  notes: string;
+}
+
+interface FormData {
+  ownerCompany: string;
+  email: string;
+  phone: string;
+  properties: PropertyData[];
+  consent: boolean;
 }
 
 export default function SignUp() {
-  const [formData, setFormData] = useState(() => ({
+  const [formData, setFormData] = useState<FormData>(() => ({
     ownerCompany: '',
     email: '',
     phone: '',
-    streetAddress: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    propertyType: '',
-    numberOfUnits: '',
-    assignedParkingSpaces: '',
-    guestParkingSpaces: '',
-    notes: '',
+    properties: [{
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      propertyType: '',
+      numberOfUnits: '',
+      assignedParkingSpaces: '',
+      guestParkingSpaces: '',
+      notes: ''
+    }],
     consent: false
   }))
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
-  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false)
-  const autocompleteRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    if (isGoogleLoaded && autocompleteRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(autocompleteRef.current, {
-        componentRestrictions: { country: 'us' },
-        fields: ['address_components', 'formatted_address'],
-        types: ['address']
-      })
+  const addProperty = () => {
+    setFormData(prev => ({
+      ...prev,
+      properties: [...prev.properties, {
+        streetAddress: '',
+        city: '',
+        state: '',
+        zipCode: '',
+        propertyType: '',
+        numberOfUnits: '',
+        assignedParkingSpaces: '',
+        guestParkingSpaces: '',
+        notes: ''
+      }]
+    }))
+  }
 
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace()
-        
-        if (!place.address_components) return
-
-        let streetNumber = ''
-        let streetName = ''
-        let city = ''
-        let state = ''
-        let zipCode = ''
-
-        for (const component of place.address_components) {
-          const componentType = component.types[0]
-
-          switch (componentType) {
-            case 'street_number':
-              streetNumber = component.long_name
-              break
-            case 'route':
-              streetName = component.long_name
-              break
-            case 'locality':
-              city = component.long_name
-              break
-            case 'administrative_area_level_1':
-              state = component.short_name
-              break
-            case 'postal_code':
-              zipCode = component.long_name
-              break
-          }
-        }
-
-        setFormData(prev => ({
-          ...prev,
-          streetAddress: `${streetNumber} ${streetName}`.trim(),
-          city,
-          state,
-          zipCode
-        }))
-      })
+  const removeProperty = (index: number) => {
+    if (formData.properties.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        properties: prev.properties.filter((_, i) => i !== index)
+      }))
     }
-  }, [isGoogleLoaded])
+  }
+
+  const handlePropertyChange = (index: number, field: keyof PropertyData, value: string) => {
+    setFormData(prev => {
+      const newProperties = [...prev.properties]
+      newProperties[index] = {
+        ...newProperties[index],
+        [field]: value
+      }
+      return {
+        ...prev,
+        properties: newProperties
+      }
+    })
+  }
 
   const validateField = (name: string, value: string): string => {
     switch (name) {
@@ -146,25 +129,31 @@ export default function SignUp() {
   }
 
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target
+    const { name, value } = e.target
     const error = validateField(name, value)
     setFieldErrors(prev => ({
       ...prev,
       [name]: error
     }))
-  } 
+  }
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target
     const checked = (e.target as HTMLInputElement).checked
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
+    if (name === 'consent') {
+      setFormData(prev => ({
+        ...prev,
+        consent: checked
+      }))
+    } else if (!name.includes('properties')) {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }))
+    }
   }
 
-  // Update input fields to show errors
   const getInputClassName = (fieldName: string) => {
     const baseClasses = "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
     return `${baseClasses} ${
@@ -174,7 +163,6 @@ export default function SignUp() {
     }`
   }
 
-  // Add error message display under inputs
   const renderFieldError = (fieldName: string) => {
     if (fieldErrors[fieldName]) {
       return (
@@ -187,7 +175,6 @@ export default function SignUp() {
   }
 
   const validateForm = () => {
-    // Basic validation rules
     if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)) {
       setErrorMessage('Please enter a valid email address')
       return false
@@ -198,9 +185,22 @@ export default function SignUp() {
       return false
     }
 
-    if (!/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
-      setErrorMessage('Please enter a valid ZIP code')
-      return false
+    // Validate each property's required fields
+    for (const property of formData.properties) {
+      if (!property.streetAddress || !property.city || !property.state || !property.zipCode) {
+        setErrorMessage('Please complete all property address fields')
+        return false
+      }
+
+      if (!property.propertyType) {
+        setErrorMessage('Please select a property type for all properties')
+        return false
+      }
+
+      if (!property.numberOfUnits) {
+        setErrorMessage('Please enter the number of units for all properties')
+        return false
+      }
     }
 
     return true
@@ -231,20 +231,21 @@ export default function SignUp() {
       }
 
       setStatus('success')
-      // Clear form
       setFormData({
         ownerCompany: '',
         email: '',
         phone: '',
-        streetAddress: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        propertyType: '',
-        numberOfUnits: '',
-        assignedParkingSpaces: '',
-        guestParkingSpaces: '',
-        notes: '',
+        properties: [{
+          streetAddress: '',
+          city: '',
+          state: '',
+          zipCode: '',
+          propertyType: '',
+          numberOfUnits: '',
+          assignedParkingSpaces: '',
+          guestParkingSpaces: '',
+          notes: ''
+        }],
         consent: false
       })
     } catch (error) {
@@ -271,252 +272,246 @@ export default function SignUp() {
   }
 
   return (
-    <>
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-        onLoad={() => setIsGoogleLoaded(true)}
-      />
-
-      <div className="py-12">
-        <div className="container max-w-2xl">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold mb-4">
-              Qualify Your Property for EV Charger Installation
-            </h1>
-            <p className="text-gray-600">
-              Fill out the form below and our team will review your application within 48-72 hours.
+    <div className="py-12">
+      <div className="container max-w-4xl">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-bold mb-4">
+            Qualify Your Properties for Free EV Charger Installation
+          </h1>
+          <p className="text-gray-600 mb-4">
+            Fill out the form below and our team will review your application within 48-72 hours.
+          </p>
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4 inline-block">
+            <p className="text-green-800 font-medium">
+              Get $500 for each charger installed at your properties!
             </p>
           </div>
+        </div>
 
-          {status === 'error' && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-red-700">
-              {errorMessage}
-            </div>
-          )}
+        {status === 'error' && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-red-700">
+            {errorMessage}
+          </div>
+        )}
 
-          <form onSubmit={handleSubmit} suppressHydrationWarning className="space-y-6 bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-            {/* Contact Information Section */}
-            <div className="border-b border-gray-200 pb-6 mb-6">
-              <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="ownerCompany" className="block text-sm font-medium text-gray-700 mb-1">
-                    Owner/Company Name
-                  </label>
-                  <input
-                    type="text"
-                    id="ownerCompany"
-                    name="ownerCompany"
-                    required
-                    className={getInputClassName('ownerCompany')}
-                    value={formData.ownerCompany}
-                    onChange={handleChange}
-                  />
-                  {renderFieldError('ownerCompany')}
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className={getInputClassName('email')}
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  {renderFieldError('email')}
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    className={getInputClassName('phone')}
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                  {renderFieldError('phone')}
-                </div>
-              </div>
-            </div>
-
-            {/* Updated Property Information Section */}
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Contact Information Section */}
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+            <h2 className="text-xl font-semibold mb-6">Contact Information</h2>
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold mb-4">Property Information</h2>
-              
               <div>
-                <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700 mb-1">
-                  Street Address
-                </label>
-                <input
-                  ref={autocompleteRef}
-                  type="text"
-                  id="streetAddress"
-                  name="streetAddress"
-                  required
-                  className={getInputClassName('streetAddress')}
-                  value={formData.streetAddress}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter your address"
-                />
-                {renderFieldError('streetAddress')}
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    required
-                    className={getInputClassName('city')}
-                    value={formData.city}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    readOnly
-                  />
-                  {renderFieldError('city')}
-                </div>
-
-                <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    id="state"
-                    name="state"
-                    required
-                    className={getInputClassName('state')}
-                    value={formData.state}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    readOnly
-                  />
-                  {renderFieldError('state')}
-                </div>
-              </div>
-
-              <div className="w-1/2">
-                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
-                  ZIP Code
+                <label htmlFor="ownerCompany" className="block text-sm font-medium text-gray-700 mb-1">
+                  Owner/Company Name
                 </label>
                 <input
                   type="text"
-                  id="zipCode"
-                  name="zipCode"
+                  id="ownerCompany"
+                  name="ownerCompany"
                   required
-                  className={getInputClassName('zipCode')}
-                  value={formData.zipCode}
+                  className={getInputClassName('ownerCompany')}
+                  value={formData.ownerCompany}
+                  onChange={handleChange}
+                />
+                {renderFieldError('ownerCompany')}
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  className={getInputClassName('email')}
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                {renderFieldError('email')}
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  className={getInputClassName('phone')}
+                  value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  readOnly
                 />
-                {renderFieldError('zipCode')}
-              </div>
-
-              <div>
-                <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Property Type
-                </label>
-                <select
-                  id="propertyType"
-                  name="propertyType"
-                  required
-                  className={getInputClassName('propertyType')}
-                  value={formData.propertyType}
-                  onChange={handleChange}
-                >
-                  <option value="">Select property type</option>
-                  {propertyTypes.map(type => (
-                    <option key={type} value={type}>{type}</option>
-                  ))}
-                </select>
-                {renderFieldError('propertyType')}
-              </div>
-
-              <div>
-                <label htmlFor="numberOfUnits" className="block text-sm font-medium text-gray-700 mb-1">
-                  Number of Units
-                </label>
-                <input
-                  type="number"
-                  id="numberOfUnits"
-                  name="numberOfUnits"
-                  required
-                  min="1"
-                  className={getInputClassName('numberOfUnits')}
-                  value={formData.numberOfUnits}
-                  onChange={handleChange}
-                />
-                {renderFieldError('numberOfUnits')}
-              </div>
-
-              <div>
-                <label htmlFor="assignedParkingSpaces" className="block text-sm font-medium text-gray-700 mb-1">
-                  Assigned Parking Spaces
-                </label>
-                <input
-                  type="number"
-                  id="assignedParkingSpaces"
-                  name="assignedParkingSpaces"
-                  required
-                  min="0"
-                  className={getInputClassName('assignedParkingSpaces')}
-                  value={formData.assignedParkingSpaces}
-                  onChange={handleChange}
-                />
-                {renderFieldError('assignedParkingSpaces')}
-              </div>
-
-              <div>
-                <label htmlFor="guestParkingSpaces" className="block text-sm font-medium text-gray-700 mb-1">
-                  Guest/Visitor Parking Spaces
-                </label>
-                <input
-                  type="number"
-                  id="guestParkingSpaces"
-                  name="guestParkingSpaces"
-                  required
-                  min="0"
-                  className={getInputClassName('guestParkingSpaces')}
-                  value={formData.guestParkingSpaces}
-                  onChange={handleChange}
-                />
-                {renderFieldError('guestParkingSpaces')}
-              </div>
-
-              <div>
-                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">
-                  Additional Notes
-                </label>
-                <textarea
-                  id="notes"
-                  name="notes"
-                  rows={4}
-                  className={getInputClassName('notes')}
-                  value={formData.notes}
-                  onChange={handleChange}
-                  placeholder="Any additional information about your property or specific requirements"
-                />
-                {renderFieldError('notes')}
+                {renderFieldError('phone')}
               </div>
             </div>
+          </div>
 
-            <div className="flex items-start pt-6">
+          {/* Properties Section */}
+          <div className="space-y-6">
+            <h2 className="text-xl font-semibold">Property Information</h2>
+
+            {formData.properties.map((property, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-lg font-medium">Property {index + 1}</h3>
+                  {formData.properties.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeProperty(index)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <TrashIcon className="w-5 h-5" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Street Address
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      className={getInputClassName(`properties.${index}.streetAddress`)}
+                      value={property.streetAddress}
+                      onChange={(e) => handlePropertyChange(index, 'streetAddress', e.target.value)}
+                      placeholder="Enter property address"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        City
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className={getInputClassName(`properties.${index}.city`)}
+                        value={property.city}
+                        onChange={(e) => handlePropertyChange(index, 'city', e.target.value)}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        State
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        className={getInputClassName(`properties.${index}.state`)}
+                        value={property.state}
+                        onChange={(e) => handlePropertyChange(index, 'state', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="w-1/2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      ZIP Code
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      className={getInputClassName(`properties.${index}.zipCode`)}
+                      value={property.zipCode}
+                      onChange={(e) => handlePropertyChange(index, 'zipCode', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Property Type
+                    </label>
+                    <select
+                      required
+                      className={getInputClassName(`properties.${index}.propertyType`)}
+                      value={property.propertyType}
+                      onChange={(e) => handlePropertyChange(index, 'propertyType', e.target.value)}
+                    >
+                      <option value="">Select property type</option>
+                      {propertyTypes.map(type => (
+                        <option key={type} value={type}>{type}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Number of Units
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min="1"
+                      className={getInputClassName(`properties.${index}.numberOfUnits`)}
+                      value={property.numberOfUnits}
+                      onChange={(e) => handlePropertyChange(index, 'numberOfUnits', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Assigned Parking Spaces
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min="0"
+                      className={getInputClassName(`properties.${index}.assignedParkingSpaces`)}
+                      value={property.assignedParkingSpaces}
+                      onChange={(e) => handlePropertyChange(index, 'assignedParkingSpaces', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Guest/Visitor Parking Spaces
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min="0"
+                      className={getInputClassName(`properties.${index}.guestParkingSpaces`)}
+                      value={property.guestParkingSpaces}
+                      onChange={(e) => handlePropertyChange(index, 'guestParkingSpaces', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Additional Notes
+                    </label>
+                    <textarea
+                      rows={4}
+                      className={getInputClassName(`properties.${index}.notes`)}
+                      value={property.notes}
+                      onChange={(e) => handlePropertyChange(index, 'notes', e.target.value)}
+                      placeholder="Any additional information about this property"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={addProperty}
+              className="w-full py-4 border-2 border-dashed border-green-500 rounded-xl text-green-600 hover:bg-green-50 flex items-center justify-center"
+            >
+              <PlusIcon className="w-5 h-5 mr-2" />
+              Add Another Property
+            </button>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+            <div className="flex items-start">
               <input
                 type="checkbox"
                 id="consent"
@@ -527,14 +522,14 @@ export default function SignUp() {
                 onChange={handleChange}
               />
               <label htmlFor="consent" className="ml-2 block text-sm text-gray-600">
-                I agree to the terms and conditions and understand the incentive payment will be issued after contract approval and signature.
+                I agree to the terms and conditions and understand the incentive payment of $500 per charger will be issued after contract approval and installation.
               </label>
             </div>
 
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="btn-primary w-full flex items-center justify-center disabled:opacity-50"
+              className="btn-primary w-full flex items-center justify-center mt-6 disabled:opacity-50"
             >
               {status === 'submitting' ? (
                 <span>Submitting...</span>
@@ -545,9 +540,9 @@ export default function SignUp() {
                 </>
               )}
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   )
 } 

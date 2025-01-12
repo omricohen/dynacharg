@@ -1,56 +1,56 @@
-import { NextResponse } from 'next/server'
 import { google } from 'googleapis'
+import { NextResponse } from 'next/server'
 
-// Initialize Google Sheets API
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
   },
-  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  scopes: [
+    'https://www.googleapis.com/auth/spreadsheets',
+  ],
 })
 
 const sheets = google.sheets({ version: 'v4', auth })
-const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const data = await request.json()
-    
-    // Combine address fields into a single property address
-    const propertyAddress = `${data.streetAddress}, ${data.city}, ${data.state} ${data.zipCode}`
-    
-    // Format the data for Google Sheets
-    const row = [
-      new Date().toISOString(),
-      data.ownerCompany,
-      data.email,
-      data.phone,
-      propertyAddress,           // Combined address
-      data.streetAddress,        // Split address fields
-      data.city,
-      data.state,
-      data.zipCode,
-      data.propertyType,
-      data.numberOfUnits,
-      data.assignedParkingSpaces,
-      data.guestParkingSpaces,
-      data.notes,
-      data.consent ? 'Yes' : 'No', // Convert boolean to Yes/No
-      'New'
-    ]
+    const body = await req.json()
+    const { ownerCompany, email, phone, properties, consent } = body
 
-    // Update the range to include consent column
+    // Create a row for each property
+    const rows = properties.map(property => [
+      new Date().toISOString(), // Timestamp
+      ownerCompany,
+      email,
+      phone,
+      property.streetAddress,
+      property.city,
+      property.state,
+      property.zipCode,
+      property.propertyType,
+      property.numberOfUnits,
+      property.assignedParkingSpaces,
+      property.guestParkingSpaces,
+      property.notes,
+      consent ? 'Yes' : 'No'
+    ])
+
+    // Append rows to the spreadsheet
     await sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A:P',      // Updated from A:O to A:P
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: 'Sheet1!A2:N', // Updated range to match number of columns
       valueInputOption: 'USER_ENTERED',
       requestBody: {
-        values: [row]
+        values: rows
       },
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      message: 'Form submitted successfully',
+      properties: properties.length
+    })
+
   } catch (error) {
     console.error('Submission error:', error)
     return NextResponse.json(
