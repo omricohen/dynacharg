@@ -3,8 +3,8 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dynachrg - Earn $500 for EV Charger Installation",
-  description: "Sign up for free EV charger installation with Dynachrg. Earn $500 per property before January 12th!",
+  title: "Dynachrg - Free EV Charger Installation",
+  description: "Sign up for free EV charger installation with Dynachrg. Limited time offer ends February 13th, 2025!",
 };
 
 export default function RootLayout({

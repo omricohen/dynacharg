@@ -283,7 +283,7 @@ export default function SignUp() {
           </p>
           <div className="bg-green-50 border border-green-200 rounded-lg p-4 inline-block">
             <p className="text-green-800 font-medium">
-              Get $500 for each charger installed at your properties!
+              Limited Time Offer: Get free EV chargers installed at your properties!
             </p>
           </div>
         </div>
@@ -522,7 +522,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
               <label htmlFor="consent" className="ml-2 block text-sm text-gray-600">
-                I agree to the terms and conditions and understand the incentive payment of $500 per charger will be issued after contract approval and installation.
+                I agree to the terms and conditions and understand that installation will be completed after contract approval.
               </label>
             </div>
 

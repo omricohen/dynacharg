@@ -28,7 +28,7 @@ export default function About() {
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">About Dynachrg</h1>
               <p className="text-xl text-gray-600 mb-8">
-                Dynachrg is committed to accelerating the adoption of electric vehicles by providing cost-free EV charger installations to property owners, with a $500 bonus for each charger installed.
+                Dynachrg is committed to accelerating the adoption of electric vehicles by providing cost-free EV charger installations to property owners.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact" className="btn-primary inline-flex items-center justify-center">
@@ -96,14 +96,14 @@ export default function About() {
                 At Dynachrg, we believe that the future of transportation is electric. Our mission is to make EV charging infrastructure accessible to all by removing the financial barriers that property owners face.
               </p>
               <p className="text-gray-600 mb-8">
-                Through strategic partnerships with LADWP and government agencies, we provide state-of-the-art EV charging solutions at no cost, plus a $500 bonus for each charger installed, creating new revenue streams for your business.
+                Through strategic partnerships with LADWP and government incentives, we provide state-of-the-art EV charging solutions at no cost, creating new revenue streams for your business.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="bg-green-100 p-2 rounded-lg">
                     <ShieldCheckIcon className="w-6 h-6 text-green-600" />
                   </div>
-                  <span className="text-gray-700">Zero upfront costs + $500 per charger</span>
+                  <span className="text-gray-700">Zero upfront costs</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="bg-green-100 p-2 rounded-lg">
@@ -212,7 +212,7 @@ export default function About() {
         <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join our mission to create a more sustainable future while earning $500 for each charger installed, plus ongoing monthly revenue from EV charging.
+            Join our mission to create a more sustainable future with free EV charger installation and ongoing monthly revenue from charging fees.
           </p>
           <Link href="/signup" className="btn-primary inline-flex items-center justify-center">
             Qualify Your Property

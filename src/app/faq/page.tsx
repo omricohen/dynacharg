@@ -6,10 +6,6 @@ import Link from 'next/link'
 
 const faqs = [
   {
-    question: "What is the $500 incentive?",
-    answer: "We are offering a $500 cash bonus for each EV charger installed at your property. This is a limited-time offer available when you sign up before January 12th. The payment is made after contract approval and installation."
-  },
-  {
     question: "How does the free installation work?",
     answer: "Our program utilizes LADWP rebates and government incentives to cover 100% of the installation and equipment costs. There are absolutely no upfront or hidden costs to property owners."
   },
@@ -19,7 +15,7 @@ const faqs = [
   },
   {
     question: "How many chargers can I get?",
-    answer: "The number of chargers depends on your property's electrical capacity and parking space availability. You'll receive the $500 bonus for each charger installed, with no upper limit."
+    answer: "The number of chargers depends on your property's electrical capacity and parking space availability. Our team will assess your property to determine the optimal number of charging stations."
   },
   {
     question: "How long does the process take?",
@@ -27,7 +23,7 @@ const faqs = [
   },
   {
     question: "Are there any upfront or hidden costs?",
-    answer: "No, there are absolutely no upfront or hidden costs. All installation, equipment, and maintenance costs are covered through LADWP rebates and government incentives. Plus, you earn $500 for each charger installed."
+    answer: "No, there are absolutely no upfront or hidden costs. All installation, equipment, and maintenance costs are covered through LADWP rebates and government incentives."
   },
   {
     question: "How do I generate revenue from the chargers?",
@@ -43,7 +39,7 @@ const faqs = [
   },
   {
     question: "What happens after I apply?",
-    answer: "After you apply, our team will: 1) Review your property's qualification within 48-72 hours, 2) Schedule a free site assessment, 3) Provide a detailed proposal showing potential revenue, 4) Handle all permits and approvals, 5) Complete the installation, and 6) Process your $500 bonus payment for each charger."
+    answer: "After you apply, our team will: 1) Review your property's qualification within 48-72 hours, 2) Schedule a free site assessment, 3) Provide a detailed proposal showing potential revenue, 4) Handle all permits and approvals, and 5) Complete the installation."
   }
 ]
 
@@ -54,11 +50,11 @@ export default function FAQ() {
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-4">Frequently Asked Questions</h1>
           <p className="text-gray-600 mb-6">
-            Find answers to common questions about our free EV charger installation program and $500 per charger bonus.
+            Find answers to common questions about our free EV charger installation program.
           </p>
           <div className="bg-green-50 border border-green-200 rounded-lg p-4 inline-block">
             <p className="text-green-800 font-medium">
-              Limited Time Offer: Get $500 for each charger installed at your property!
+              Limited Time Offer: Get free EV chargers installed at your property!
             </p>
           </div>
         </div>

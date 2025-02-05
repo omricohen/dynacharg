@@ -19,7 +19,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Countdown from 'react-countdown'
 
-const DEADLINE = new Date('2025-01-12')
+const DEADLINE = new Date('2025-02-13')
 
 export default function Home() {
   return (
@@ -34,11 +34,11 @@ export default function Home() {
                 Limited Time Offer
               </div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Free EV Chargers + $500 Rebate Per Charger
+                Free EV Chargers For Your Property
               </h1>
               <div className="bg-green-100 border border-green-200 rounded-lg p-4 mb-6">
                 <p className="text-lg text-green-800 font-medium">
-                  Perfect for properties with 10+ units. Get EV chargers installed at no cost, plus earn $500 for each charger!
+                  Perfect for properties with 10+ units. Get EV chargers installed at no cost!
                 </p>
               </div>
               <p className="text-xl text-gray-600 mb-8">
@@ -64,10 +64,8 @@ export default function Home() {
               />
               <div className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
                 <div className="text-center">
-                  <span className="text-sm font-medium">FREE Installation</span>
-                  <div className="border-t border-white/20 my-1"></div>
-                  <span className="text-2xl font-bold">+$500</span>
-                  <span className="text-sm block">per charger</span>
+                  <span className="text-2xl font-bold">FREE</span>
+                  <span className="text-sm block">Installation</span>
                 </div>
               </div>
             </div>
@@ -99,10 +97,10 @@ export default function Home() {
                 </div>
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <ClockIcon className="w-6 h-6 text-green-600" />
-                  <h2 className="text-2xl font-bold">Double Your Benefits Today</h2>
+                  <h2 className="text-2xl font-bold">Limited Time Opportunity</h2>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Take advantage of our no-cost installation program plus $500 rebate per charger, while LADWP rebates and Federal tax credits are at their peak.
+                  Take advantage of our no-cost installation program while LADWP rebates and Federal tax credits are at their peak.
                 </p>
                 <div className="inline-block bg-white px-8 py-6 rounded-xl shadow-sm border border-gray-100 mb-6">
                   <Countdown
@@ -132,7 +130,7 @@ export default function Home() {
                 <div className="text-left bg-yellow-50 p-4 rounded-lg border border-yellow-100">
                   <div className="flex items-center gap-2 mb-2">
                     <BoltIcon className="w-5 h-5 text-yellow-800" />
-                    <h4 className="font-semibold text-yellow-800">Triple Savings Opportunity</h4>
+                    <h4 className="font-semibold text-yellow-800">Double Benefits</h4>
                   </div>
                   <ul className="text-sm text-yellow-800 space-y-2">
                     <li className="flex items-start gap-2">
@@ -141,11 +139,11 @@ export default function Home() {
                     </li>
                     <li className="flex items-start gap-2">
                       <CurrencyDollarIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span>$500 cash bonus for each charger you install</span>
+                      <span>Ongoing revenue from EV charging fees</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <BoltIcon className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span>Ongoing revenue from EV charging fees</span>
+                      <span>Federal tax credits at peak rate of 30%</span>
                     </li>
                   </ul>
                 </div>
