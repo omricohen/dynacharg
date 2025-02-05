@@ -280,7 +280,7 @@ export default function Home() {
             <BuildingOfficeIcon className="w-8 h-8 text-green-600" />
             <h2 className="text-3xl font-bold">Ready to super-charge your property?</h2>
           </div>
-          <p className="text-gray-600 mb-8">Perfect for properties with 10+ units. Don't miss out on the $500 incentive - limited time offer ends January 12th!</p>
+          <p className="text-gray-600 mb-8">Perfect for properties with 10+ units. Don't miss out on this limited time offer ends February 13th!</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="btn-primary inline-flex items-center justify-center">
               Talk to an Expert
